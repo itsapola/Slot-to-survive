@@ -47,3 +47,14 @@ All characters, businesses and events here are fictional satire. Do not confuse 
 ## Current scope
 
 Static front end plus a Cloudflare Pages Function. No database is required; GitHub is the canonical store. Editing is protected by a server-side editor password, but the overall site and repository remain public until you explicitly restrict them.
+
+
+## Character portrait assets (one-time upload)
+
+The Story Room now expects photographs at `portraits/<character-id>.jpg`. Each portrait appears automatically in character cards and the full biography. Until images are uploaded, an initials placeholder remains visible, without broken-image symbols.
+
+The 21 headshots have been cropped from the approved three ensemble sheets. Download and **unzip** the character-photos archive supplied in the conversation. On GitHub, select **Add file → Upload files**, drag in the **portraits** folder's JPG files, ensuring they are saved under the repository's `portraits/` directory, and commit. In GitHub's web uploader, the easiest method is to enter/create the `portraits` folder first so the paths remain correct. Cloudflare will then redeploy them automatically.
+
+Names: `jake, richard, gary, martin, terry, brent, dennis, val, gordon, elaine, neil, frank, dale, simon, pam, elliot, al, deborah, linda, stanley, susan` — each with a `.jpg` extension.
+
+The cast photography is fictional and AI-created. The older Valerie visual remains assigned to Valerie Chen (now canonically “Neil's Wife”), while Elaine's own portrait appears on her racer profile.
