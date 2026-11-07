@@ -21,9 +21,20 @@ GitHub Pages hosting is public. This project is a **writer's room**, not the fic
 
 ## Editing and keeping your changes
 
-Character edits, writer notes and forum drafts persist in your **current browser's localStorage**. They do **not** automatically sync to GitHub or other devices. Use the sidebar's **Export backup** feature regularly, and **Import backup** to restore the saved JSON in another browser.
+Changes are saved locally as drafts. Click **Save to GitHub** in the sidebar to commit the edits, notes, new forum threads and replies to `data.js` on `main`. Cloudflare Pages then rebuilds the site. To prevent accidentally overwriting a concurrent edit, publishing checks the GitHub file revision and blocks stale saves. If blocked, **Export backup** before reloading.
 
-To make canonical changes persist for everyone, update `data.js` in the repository. Browser overrides may temporarily take precedence over newer `data.js` facts until reset/imported.
+**Required Cloudflare Pages secrets** (never commit these to GitHub):
+
+1. In GitHub, create a **fine-grained personal access token** with repository access only to `itsapola/Slot-to-survive` and **Contents: Read and write** permission. Do not paste that token into this website or a public file.
+2. In the **Cloudflare Pages project**, open **Settings → Variables and Secrets** (sometimes under **Environment variables**), and add `GITHUB_TOKEN` as a **secret** containing that token.
+3. Add `STORY_ADMIN_PASSWORD` as a **secret** with a long unique editor password. It should not match your GitHub password.
+4. Make sure both secrets are set in the **Production** environment. Redeploy the latest commit so Cloudflare Pages Functions pick up the values.
+5. In the deployed Story Room, edit a character or create a forum post, then click **Save to GitHub**. Enter the editor password when prompted. The browser remembers the password only until the tab closes, not in localStorage.
+6. Confirm the resulting commit in GitHub and let Cloudflare redeploy. Refresh other devices to load it.
+
+**Important:** This is a public repository. Even if the editor is password protected, your characters, scandals and spoilers in `data.js` are publicly readable. For truly private story development, make the repository private and protect the Cloudflare site with Cloudflare Access. Consider Cloudflare rate limiting or Access for the write endpoint.
+
+The site's API lives in `functions/api/story.js`, and uses the token server-side. Static deployments that don't execute Cloudflare Pages Functions will not support GitHub saving.
 
 ## Production approach
 
@@ -35,4 +46,4 @@ All characters, businesses and events here are fictional satire. Do not confuse 
 
 ## Current scope
 
-Static front end; no database, no login and no shared server-side writing. This makes the first version inexpensive to host and easy to iterate. A future shared-authored version can add a database.
+Static front end plus a Cloudflare Pages Function. No database is required; GitHub is the canonical store. Editing is protected by a server-side editor password, but the overall site and repository remain public until you explicitly restrict them.
